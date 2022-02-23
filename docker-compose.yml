@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - kafka_network
+    volumes:
+      - volume1:/tmp/zookeeper
+  
+  kafka:
+    container_name: kafka_server
+    image: wurstmeister/kafka
+    ports: 
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      ALLOW_PLAINTEXT_LISTNER: "yes"
+      KAFKA_CREATE_TOPICS: "test:1:1,test1:1:1"
+    networks:
+      - kafka_network
+    volumes:
+      - volume2:/tmp/kafka-logs
+
+  producer:
+    container_name: producer
+    build: 
+      context: .
+      dockerfile: producer/Dockerfile
+    depends_on:
+      - zookeeper
+      - kafka
+    networks:
+      - kafka_network
+
+  consumer:
+    container_name: consumer
+    build: 
+      context: .
+      dockerfile: consumer/Dockerfile
+    depends_on:
+      - zookeeper
+      - kafka
+    networks:
+      - kafka_network
+
+networks:
+  kafka_network:
+
+volumes:
+  volume1:
+  volume2:
