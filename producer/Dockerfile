@@ -1,8 +1,8 @@
 FROM openjdk:8-jre-slim
 
-WORKDIR /kafka-server
+WORKDIR /mykafka
 
-COPY kafka/ /kafka-server/
+COPY kafka/ /mykafka
 
 ENTRYPOINT ["./bin/kafka-console-producer.sh","--bootstrap-server","kafka:9092","--topic"]
 

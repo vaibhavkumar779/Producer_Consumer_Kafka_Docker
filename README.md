@@ -1,6 +1,13 @@
 # ASSIGNMENT
  Dockerize and demonstrate how to solve producer/consumer problem via Kafka. 
 
+# PreRequisites:
+
+* docker installed on system ( Installation Steps: https://docs.docker.com/engine/install/ )
+* docker-compose installed as well ( Installation Steps: https://docs.docker.com/compose/install/ )
+
+Note: please go through post install steps as well in both steps for root privileges
+
 **1. To run kafka use command:**
 
 ```bash

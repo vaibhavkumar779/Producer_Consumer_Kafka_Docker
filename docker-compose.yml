@@ -9,7 +9,7 @@ services:
     networks:
       - kafka_network
     volumes:
-      - volume1:/tmp/zookeeper
+      - Zookeeper:/tmp/zookeeper
   
   kafka:
     container_name: kafka_server
@@ -28,7 +28,7 @@ services:
     networks:
       - kafka_network
     volumes:
-      - volume2:/tmp/kafka-logs
+      - Kafka_logs:/tmp/kafka-logs
 
   producer:
     container_name: producer
@@ -56,5 +56,5 @@ networks:
   kafka_network:
 
 volumes:
-  volume1:
-  volume2:
+  Zookeeper:
+  Kafka_logs:
